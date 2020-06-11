@@ -10182,12 +10182,14 @@ GameObject:
   - component: {fileID: 6507708}
   - component: {fileID: 8261418}
   - component: {fileID: 8268710}
-  - component: {fileID: 11443146}
+  - component: {fileID: 8024321363395575654}
   - component: {fileID: 11409376}
   - component: {fileID: 11488788}
   - component: {fileID: -4407165234291068721}
   - component: {fileID: 8020259595596332599}
   - component: {fileID: -8445790905207686331}
+  - component: {fileID: 8264460298045559093}
+  - component: {fileID: 8249004190856437986}
   m_Layer: 9
   m_Name: MultiCompleteTank
   m_TagString: Untagged
@@ -10438,7 +10440,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &11443146
+--- !u!114 &8024321363395575654
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10447,16 +10449,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 173472}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e4cc0827b572b5408b2cd8eb8b456b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 29af3199e11b72e47b41ff380db540fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerNumber: 1
-  m_Speed: 12
+  m_Speed: 5
   m_TurnSpeed: 180
   m_MovementAudio: {fileID: 8261418}
   m_EngineIdling: {fileID: 8300000, guid: 4932ab25b84dd7649b80af68a9660ddc, type: 3}
   m_EngineDriving: {fileID: 8300000, guid: d7ca9fb5aa30155449192b23d7fb3336, type: 3}
   m_PitchRange: 0.1
+  lookSensitivity: 1
 --- !u!114 &11409376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10543,11 +10546,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   componentsToDisable:
-  - {fileID: 11443146}
+  - {fileID: 8024321363395575654}
   - {fileID: 11409376}
   - {fileID: 11488788}
   - {fileID: 6990469376855693370}
   - {fileID: 7322251049194439676}
+  - {fileID: 8264460298045559093}
+  - {fileID: 8249004190856437986}
 --- !u!114 &-8445790905207686331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10570,6 +10575,33 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+--- !u!114 &8264460298045559093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efbaae150c236e686b2047ad455d0987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+--- !u!114 &8249004190856437986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173472}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47751eac3736da5788ebbd94e6cc5212, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  lookSensitivity: 3
 --- !u!1 &173936
 GameObject:
   m_ObjectHideFlags: 0
