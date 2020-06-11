@@ -76,6 +76,12 @@ public class TankShooting : NetworkBehaviour {
 
     [Command]
     void CmdNewBullet(Vector3 position, Quaternion rotation, Vector3 velocity) {
+        // Create an instance of the shell and store a reference to it's rigidbody.
+        Rigidbody shellInstance =
+            Instantiate (m_Shell, position, rotation) as Rigidbody;
+
+        // Set the shell's velocity to the launch force in the fire position's forward direction.
+        shellInstance.velocity = velocity;
         RpcBulletObj(position, rotation, velocity);
     }
     [ClientRpc]
