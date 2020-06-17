@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 13693818}
   - component: {fileID: 5409530}
   - component: {fileID: 10833074}
-  - component: {fileID: 11426614}
+  - component: {fileID: 6642029295334832488}
   m_Layer: 0
-  m_Name: CompleteShell
+  m_Name: MultiShell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,7 +175,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &11426614
+--- !u!114 &6642029295334832488
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -184,7 +184,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 192454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af9894b7bced3a04c870ade3c621f94e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a77fdcebbe85f14ab98dfad5da07c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_TankMask:

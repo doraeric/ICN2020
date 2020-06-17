@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class TankHealth : MonoBehaviour {
+public class TankHealth : NetworkBehaviour {
     public float m_StartingHealth = 100f; // The amount of health each tank starts with.
     public Slider m_Slider; // The slider to represent how much health the tank currently has.
     public Image m_FillImage; // The image component of the slider.
@@ -11,7 +12,7 @@ public class TankHealth : MonoBehaviour {
 
     private AudioSource m_ExplosionAudio; // The audio source to play when the tank explodes.
     private ParticleSystem m_ExplosionParticles; // The particle system the will play when the tank is destroyed.
-    private float m_CurrentHealth; // How much health the tank currently has.
+    [SyncVar] private float m_CurrentHealth; // How much health the tank currently has.
     private bool m_Dead; // Has the tank been reduced beyond zero health yet?
 
     private void Awake () {
@@ -31,23 +32,28 @@ public class TankHealth : MonoBehaviour {
         m_Dead = false;
 
         // Update the health slider's value and color.
-        SetHealthUI ();
+        RpcSetHealthUI ();
     }
 
     public void TakeDamage (float amount) {
         // Reduce current health by the amount of damage done.
-        m_CurrentHealth -= amount;
+        if (isServer) {
+            m_CurrentHealth -= amount;
 
-        // Change the UI elements appropriately.
-        SetHealthUI ();
+            // Change the UI elements appropriately.
+            RpcSetHealthUI ();
 
-        // If the current health is at or below zero and it has not yet been registered, call OnDeath.
-        if (m_CurrentHealth <= 0f && !m_Dead) {
-            OnDeath ();
+            // If the current health is at or below zero and it has not yet been registered, call OnDeath.
+            if (m_CurrentHealth <= 0f && !m_Dead) {
+                RpcOnDeath ();
+                m_Dead = true;
+                gameObject.SetActive (false);
+            }
         }
     }
 
-    private void SetHealthUI () {
+    [ClientRpc]
+    private void RpcSetHealthUI () {
         // Set the slider's value appropriately.
         m_Slider.value = m_CurrentHealth;
 
@@ -55,7 +61,8 @@ public class TankHealth : MonoBehaviour {
         m_FillImage.color = Color.Lerp (m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_StartingHealth);
     }
 
-    private void OnDeath () {
+    [ClientRpc]
+    private void RpcOnDeath () {
         // Set the flag so that this function is only called once.
         m_Dead = true;
 
