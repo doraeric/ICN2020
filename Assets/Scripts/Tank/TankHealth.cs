@@ -12,7 +12,8 @@ public class TankHealth : NetworkBehaviour {
 
     private AudioSource m_ExplosionAudio; // The audio source to play when the tank explodes.
     private ParticleSystem m_ExplosionParticles; // The particle system the will play when the tank is destroyed.
-    [SyncVar] private float m_CurrentHealth; // How much health the tank currently has.
+    [SyncVar (hook = "SetHealthUI")]
+    private float m_CurrentHealth; // How much health the tank currently has.
     private bool m_Dead; // Has the tank been reduced beyond zero health yet?
 
     private void Awake () {
@@ -32,16 +33,14 @@ public class TankHealth : NetworkBehaviour {
         m_Dead = false;
 
         // Update the health slider's value and color.
-        RpcSetHealthUI ();
+        SetHealthUI (m_CurrentHealth);
     }
 
     public void TakeDamage (float amount) {
         // Reduce current health by the amount of damage done.
         if (isServer) {
+            // change UI automatically because of hook
             m_CurrentHealth -= amount;
-
-            // Change the UI elements appropriately.
-            RpcSetHealthUI ();
 
             // If the current health is at or below zero and it has not yet been registered, call OnDeath.
             if (m_CurrentHealth <= 0f && !m_Dead) {
@@ -52,13 +51,12 @@ public class TankHealth : NetworkBehaviour {
         }
     }
 
-    [ClientRpc]
-    private void RpcSetHealthUI () {
+    private void SetHealthUI (float newCurrentHealth) {
         // Set the slider's value appropriately.
-        m_Slider.value = m_CurrentHealth;
+        m_Slider.value = newCurrentHealth;
 
         // Interpolate the color of the bar between the choosen colours based on the current percentage of the starting health.
-        m_FillImage.color = Color.Lerp (m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_StartingHealth);
+        m_FillImage.color = Color.Lerp (m_ZeroHealthColor, m_FullHealthColor, newCurrentHealth / m_StartingHealth);
     }
 
     [ClientRpc]
